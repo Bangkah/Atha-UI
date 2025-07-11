@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ide Fitur
+    url: https://github.com/atha-ui/atha-ui/discussions/new?category=ide-fitur
+    about: Punya ide keren untuk Atha-UI? Bagikan di sini!
+  - name: Pertanyaan Umum
+    url: https://github.com/atha-ui/atha-ui/discussions/new?category=pertanyaan
+    about: Bingung menggunakan Atha-UI? Ajukan pertanyaanmu di sini.
