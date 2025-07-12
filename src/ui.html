@@ -1,66 +1,167 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="Content-Security-Policy" content="default-src file: 'unsafe-inline'; img-src file: data:; media-src file:; connect-src ws: file:">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Atha UI</title>
 
-        <!-- Load dependency css -->
-        <link rel="stylesheet" href="node_modules/augmented-ui/augmented.css" />
-        <!-- Load main css -->
-        <link rel="stylesheet" href="assets/css/main.css" />
-        <link rel="stylesheet" href="assets/css/modal.css" />
-        <link rel="stylesheet" href="assets/css/boot_screen.css" />
-        <link rel="stylesheet" href="assets/css/media_player.css" />
-        <!-- Load main modules css -->
-        <link rel="stylesheet" href="assets/css/main_shell.css" />
-        <link rel="stylesheet" href="assets/css/filesystem.css" />
-        <link rel="stylesheet" href="assets/css/keyboard.css" />
-        <!-- Load secondary modules css -->
-        <link rel="stylesheet" href="assets/css/mod_column.css" />
-        <link rel="stylesheet" href="assets/css/mod_clock.css" />
-        <link rel="stylesheet" href="assets/css/mod_sysinfo.css" />
-        <link rel="stylesheet" href="assets/css/mod_hardwareInspector.css" />
-        <link rel="stylesheet" href="assets/css/mod_cpuinfo.css" />
-        <link rel="stylesheet" href="assets/css/mod_netstat.css" />
-        <link rel="stylesheet" href="assets/css/mod_conninfo.css" />
-        <link rel="stylesheet" href="assets/css/mod_globe.css" />
-        <link rel="stylesheet" href="assets/css/mod_ramwatcher.css" />
-        <link rel="stylesheet" href="assets/css/mod_toplist.css" />
-        <link rel="stylesheet" href="assets/css/mod_fuzzyFinder.css" />
-        <link rel="stylesheet" href="assets/css/mod_processlist.css" />
-        <!-- Load extra CSS -->
-        <link rel="stylesheet" href="assets/css/extra_ratios.css" />
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src file: 'unsafe-inline'; img-src file: data:; media-src file:; connect-src ws: file:">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atha UI</title>
 
-        <!-- Load dependency js -->
-        <script src="node_modules/pdfjs-dist/build/pdf.js"></script>
-        <!-- Load main modules classes -->
-        <script src="classes/modal.class.js"></script>
-        <script src="classes/terminal.class.js"></script>
-        <script src="classes/docReader.class.js"></script>
-        <script src="classes/mediaPlayer.class.js"></script>
-        <script src="classes/filesystem.class.js"></script>
-        <script src="classes/keyboard.class.js"></script>
-        <script src="classes/updateChecker.class.js"></script>
-        <!-- Load secondary modules classes -->
-        <script src="classes/clock.class.js"></script>
-        <script src="classes/sysinfo.class.js"></script>
-        <script src="classes/hardwareInspector.class.js"></script>
-        <script src="classes/cpuinfo.class.js"></script>
-        <script src="classes/netstat.class.js"></script>
-        <script src="classes/conninfo.class.js"></script>
-        <script src="classes/locationGlobe.class.js"></script>
-        <script src="classes/ramwatcher.class.js"></script>
-        <script src="classes/toplist.class.js"></script>
-        <script src="classes/fuzzyFinder.class.js"></script>
-        <!-- Load extra classes -->
-        <script src="classes/audiofx.class.js"></script>
-    </head>
-    <body class="solidBackground">
-        <section id="boot_screen">
-        </section>
+  <!-- Load Fonts & eDEX Theme -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-        <script src="_renderer.js"></script>
-    </body>
+  <!-- Load CSS -->
+  <link rel="stylesheet" href="node_modules/augmented-ui/augmented.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/boot_screen.css" />
+  <link rel="stylesheet" href="assets/css/mod_sysinfo.css" />
+  <link rel="stylesheet" href="assets/css/mod_cpuinfo.css" />
+  <link rel="stylesheet" href="assets/css/mod_netstat.css" />
+  <link rel="stylesheet" href="assets/css/mod_ramwatcher.css" />
+  <link rel="stylesheet" href="assets/css/main_shell.css" />
+  <link rel="stylesheet" href="assets/css/keyboard.css" />
+
+  <!-- Load JS Modules -->
+  <script src="node_modules/pdfjs-dist/build/pdf.js"></script>
+  <script src="classes/modal.class.js"></script>
+  <script src="classes/terminal.class.js"></script>
+  <script src="classes/audiofx.class.js"></script>
+  <script src="classes/cpuinfo.class.js"></script>
+  <script src="classes/sysinfo.class.js"></script>
+  <script src="classes/ramwatcher.class.js"></script>
+  <script src="classes/netstat.class.js"></script>
+  <script src="_renderer.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: #00ffcc;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    h1 {
+      color: #00ff00;
+      text-align: center;
+      margin: 0.5em 0;
+    }
+
+    .debug-box {
+      border: 2px solid red;
+      color: red;
+      width: fit-content;
+      margin: auto;
+      padding: 0.5em;
+    }
+
+    #boot_screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      border: 4px dashed lime;
+    }
+
+    #main_ui {
+      display: none;
+      padding: 2rem;
+    }
+
+    .module-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .module {
+      border: 2px solid #00ffcc;
+      padding: 1rem;
+      min-width: 300px;
+      min-height: 150px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Boot Screen -->
+ <body class="solidBackground">
+  <section id="boot_screen">
+    <img src="media/linuxicons/logo.png" alt="Atha UI Logo">
+    <h1>Welcome to Atha UI</h1>
+    <p>🚀 Sistem Terminal Interaktif Electron</p>
+    <div class="boot-panel">[Debug Panel]</div>
+    <div class="boot-status">[✔] boot_screen ditemukan & aktif</div>
+  </section>
+
+
+
+  <!-- Main Interface (Hidden at start) -->
+  <div id="main_ui">
+    <h1>ATHA UI v1.0</h1>
+    <div class="module-row">
+      <div id="mod_sysinfo" class="module">[Sistem Info]</div>
+      <div id="mod_cpuinfo" class="module">[CPU Info]</div>
+      <div id="mod_ramwatcher" class="module">[RAM Info]</div>
+      <div id="mod_netstat" class="module">[Network Info]</div>
+    </div>
+    <br>
+    <div class="module-row">
+      <div id="terminal" class="module">[Terminal Interaktif]</div>
+    </div>
+  </div>
+
+  <!-- Boot Animation Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        const boot = document.getElementById("boot_screen");
+        const main = document.getElementById("main_ui");
+        if (boot && main) {
+          boot.style.display = "none";
+          main.style.display = "block";
+        }
+      }, 3000); // 3 detik boot screen
+    });
+  </script>
+
+  <!-- Init Modules -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      console.log("✅ Atha UI Modules loading...");
+
+      // Suara Ketik
+      document.addEventListener("keydown", () => {
+        if (window.AudioFX && AudioFX.playKey) AudioFX.playKey();
+      });
+
+      // Terminal
+      const term = new Terminal();
+      term.onData(data => {
+        const terminalEl = document.getElementById("terminal");
+        terminalEl.innerHTML += `<pre>${data}</pre>`;
+      });
+
+      // CPU Info
+      const cpu = new CPUInfo();
+      cpu.init();
+
+      // RAM Watcher
+      const ram = new RAMWatcher();
+      ram.init();
+
+      // Netstat
+      const net = new Netstat();
+      net.init();
+
+      // SysInfo
+      const sys = new SysInfo();
+      sys.init();
+    });
+  </script>
+</body>
+
 </html>
